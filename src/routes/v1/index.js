@@ -7,4 +7,4 @@ router.delete('/city/:id', Citycontroller.destroy) ;
 router.get('/city/:id', Citycontroller.get);
 router.patch('/city/:id', Citycontroller.update);
 
-module.exports = router;
+module.exports = router; 

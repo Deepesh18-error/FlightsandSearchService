@@ -1,6 +1,6 @@
 const { CityService } = require('../services/index');
 
-const cityRepository = new CityRepository(); // Making object
+const cityRepository = new CityService(); // Making object
 /* POST
 Credata -> req.body
 */
@@ -64,9 +64,9 @@ const update = async (req , res) => {
         });
     }
 }
-
+ 
 // GET -> /city/:id
-const show = async (req , res) => {
+const get = async (req , res) => {
     try{
         const response = await cityRepository.getCity(req.params.id);
         return res.status(200).json({
@@ -85,3 +85,10 @@ const show = async (req , res) => {
         });
     }
 }
+
+module.exports = {
+    create,
+    destroy,
+    update,
+    get
+};

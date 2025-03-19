@@ -1,12 +1,12 @@
 const { CityService } = require('../services/index');
 
-const cityRepository = new CityService(); // Making object
+const cityService = new CityService(); // Making object
 /* POST
 Credata -> req.body
 */
 const create = async (req , res) => {
     try{
-        const city = await cityRepository.createCity(req.body); // Q
+        const city = await cityService.createCity(req.body); // Q
         return res.status(201).json({ // Q
             data: city,
             success: true,
@@ -24,9 +24,9 @@ const create = async (req , res) => {
     }
 }
 
-const destroy= async (req , res) => {
+const destroy = async (req , res) => {
     try{
-        const response = await cityRepository.deleteCity(req.params.id);
+        const response = await cityService.deleteCity(req.params.id);
         return res.status(200).json({
             data: response,
             success: true,
@@ -47,7 +47,7 @@ const destroy= async (req , res) => {
 // PATCH -> /city/:id -> req.body
 const update = async (req , res) => {
     try{
-        const response = await cityRepository.updateCity(req.params.id, req.body);
+        const response = await cityService.updateCity(req.params.id, req.body);
         return res.status(200).json({
             data: response,
             success: true,
@@ -68,7 +68,7 @@ const update = async (req , res) => {
 // GET -> /city/:id
 const get = async (req , res) => {
     try{
-        const response = await cityRepository.getCity(req.params.id);
+        const response = await cityService.getCity(req.params.id);
         return res.status(200).json({
             data: response,
             success: true,
@@ -86,9 +86,30 @@ const get = async (req , res) => {
     }
 }
 
+const getAll = async (req , res) => {
+    try{
+        const cities = await cityService.getAllCities();
+        return res.status(200).json({
+            data: cities,
+            success: true,
+            message: "City fetched successfully",
+            err : {}
+        });
+    } catch (error){
+        console.log(error);
+        return res.status(500).json({
+            data: {},
+            success: false,
+            message: "City fetch failed",
+            err : error
+        });
+    }
+}
 module.exports = {
     create,
     destroy,
     update,
-    get
+    get,
+    getAll
+
 };
